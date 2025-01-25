@@ -15,17 +15,6 @@ namespace StarWarsAPI
 
             var app = builder.Build();
 
-            /*
-            // Получаем экземпляр PlanetService через DI
-            using (var scope = app.Services.CreateScope())
-            {
-                var planetService = scope.ServiceProvider.GetRequiredService<PlanetService>();
-                var planet = await planetService.GetPlanet(1);
-
-                Console.WriteLine($"Planet Name: {planet?.Name}");
-            }
-            */
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
