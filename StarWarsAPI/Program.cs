@@ -1,3 +1,5 @@
+using System.Net.Http.Headers;
+using Microsoft.Extensions.Options;
 using StarWarsAPI.Services;
 
 namespace StarWarsAPI
@@ -8,10 +10,20 @@ namespace StarWarsAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddScoped<PlanetService>();
-            builder.Services.AddScoped<PeopleService>();
+            builder.Services.AddScoped<ISwapiClient, SwapiClient>();
+            builder.Services.AddScoped<ISwapiService, SwapiService>();
 
             builder.Services.AddRazorPages();
+
+            var configuration = builder.Configuration;
+            builder.Services.Configure<SwapiSettings>(configuration.GetSection("Swapi"));
+            builder.Services.AddOptions<SwapiSettings>().ValidateDataAnnotations();
+
+            builder.Services.AddHttpClient<ISwapiClient, SwapiClient>((services, client) =>
+            {
+                var settings = services.GetRequiredService<IOptions<SwapiSettings>>().Value;
+                client.BaseAddress = new Uri(settings.ApiUrl);
+            });
 
             var app = builder.Build();
 

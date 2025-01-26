@@ -5,28 +5,29 @@
         /// <summary>
         /// Id
         /// </summary>
-        public int Id { get; set; }
+        public int Id { get; }
 
         /// <summary>
         /// Название
         /// </summary>
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; }
 
         /// <summary>
         /// Информация о гравитации
         /// </summary>
-        public string Gravity { get; set; } = string.Empty;
+        public string Gravity { get; }
 
         /// <summary>
         /// Ссылки на жителей
         /// </summary>
-        public IReadOnlyList<PeopleViewModel> Residents => _residents.AsReadOnly();
-        private readonly List<PeopleViewModel> _residents = new();
+        public IReadOnlyList<PersonViewModel> Residents { get; }
 
-        //Добавление жителей
-        public void AddResidence(PeopleViewModel peopleViewModel)
+        public PlanetViewModel(int id, string name, string gravity, IReadOnlyList<PersonViewModel> residents)
         {
-            _residents.Add(peopleViewModel);
+            Id = id;
+            Name = name;
+            Gravity = gravity;
+            Residents = residents;
         }
     }
 }

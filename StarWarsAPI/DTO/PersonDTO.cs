@@ -1,8 +1,6 @@
-﻿using StarWarsAPI.DTO;
-
-namespace StarWarsAPI.ViewModels
+﻿namespace StarWarsAPI.DTO
 {
-    public class PeopleViewModel
+    public record PersonDTO
     {
         /// <summary>
         /// Имя
